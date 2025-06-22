@@ -1,0 +1,15 @@
+<h2>Edit Profile</h2>
+<form (ngSubmit)="onSubmit()">
+  <label>New Username:</label>
+  <input type="text" [(ngModel)]="newUsername" name="newUsername" required />
+
+  <label>New Password:</label>
+  <input type="password" [(ngModel)]="newPassword" name="newPassword" required />
+
+  <button type="submit">Save</button>
+  <button type="button" (click)="onCancel()">Cancel</button>
+
+  <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+</form>
+
