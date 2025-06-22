@@ -1,0 +1,22 @@
+<div class="login-container">
+  <h1>HoneyDoList</h1>
+  <form (ngSubmit)="onLogin()" #loginForm="ngForm">
+    <input
+      type="text"
+      name="username"
+      [(ngModel)]="username"
+      placeholder="Username"
+      required
+    />
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      placeholder="Password"
+      required
+    />
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+    <button type="button" (click)="onRegister()">Register</button>
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </form>
+</div>
