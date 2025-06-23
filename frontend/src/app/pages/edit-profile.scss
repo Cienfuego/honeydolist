@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:host {
+  font-family: 'Inter', sans-serif;
+}
+
+.edit-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1rem;
+  background-color: #f9fafb;
+}
+
+.edit-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #3A86FF;
+}
+
+input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+input:focus {
+  border-color: #3A86FF;
+  background-color: #ffffff;
+}
+
+button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: #3A86FF;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+button:hover:enabled {
+  background-color: #336fd1;
+}
+
+button.cancel {
+  background-color: #94A3B8;
+}
+
+button.cancel:hover {
+  background-color: #64748B;
+}
+
+.error, .success {
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.error {
+  color: #DC2626;
+}
+
+.success {
+  color: #22C55E;
+}

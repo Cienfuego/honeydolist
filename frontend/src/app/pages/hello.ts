@@ -27,7 +27,7 @@ export class HelloComponent {
 
 
   username: string | null = null;
-
+  showModal = false;
   ngOnInit() {
     this.username = this.authService.getUsername();
 }
@@ -36,9 +36,10 @@ onEdit(): void {
     this.router.navigate(['/edit-profile']);
   }
 
+
 onDelete(): void {
     // You can add a confirmation dialog here before deleting
-    if (confirm('Are you sure you want to delete your account?')) {
+    //if (confirm('Are you sure you want to delete your account?')) {
       const username = this.authService.getUsername();
       console.log(username);
       if (username) {
@@ -53,7 +54,13 @@ onDelete(): void {
             alert('An error occurred while deleting your account.');
           }
         });
+         this.router.navigate(['/login'])
       }
-    }
+    //}
+  }
+
+   confirmDelete() {
+    this.showModal = false;
+    this.onDelete(); // your existing delete logic
   }
 }

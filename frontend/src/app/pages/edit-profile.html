@@ -1,4 +1,4 @@
-<h2>Edit Profile</h2>
+<!-- <h2>Edit Profile</h2>
 <form (ngSubmit)="onSubmit()">
   <label>New Username:</label>
   <input type="text" [(ngModel)]="newUsername" name="newUsername" required />
@@ -11,5 +11,33 @@
 
   <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
   <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-</form>
+</form> -->
+
+
+<div class="edit-wrapper">
+  <form class="edit-card" (ngSubmit)="onSubmit()" #editForm="ngForm">
+    <h2>Edit Profile</h2>
+
+    <input
+      type="text"
+      name="newUsername"
+      placeholder="New Username"
+      [(ngModel)]="newUsername"
+      required
+    />
+    <input
+      type="password"
+      name="newPassword"
+      placeholder="New Password"
+      [(ngModel)]="newPassword"
+      required
+    />
+
+    <button type="submit" [disabled]="editForm.invalid">Save Changes</button>
+    <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
+
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="success" *ngIf="successMessage">{{ successMessage }}</div>
+  </form>
+</div>
 
