@@ -1,8 +1,45 @@
-<div class="hello-container">
+<!-- <div class="hello-container">
   <h2>Hello {{username}}, welcome to HoneyDoList!</h2>
 
   <button (click)="onLogout()">Logout</button>
 </div>
 <button (click)="onEdit()">Edit Profile</button>
 <button (click)="onDelete()">Delete Account</button>
+ -->
+
+
+
+<!-- <div class="hello-wrapper">
+  <div class="card">
+    <h1>Hello, {{ username }}!</h1>
+    <p>Welcome to HoneyDoList. What would you like to do?</p>
+
+    <button (click)="onEdit()">Edit Profile</button>
+    <button class="delete" (click)="onDelete()">Delete Account</button>
+    <button class="cancel" (click)="onLogout()">Logout</button>
+  </div>
+</div> -->
+
+<div class="hello-wrapper">
+  <div class="card">
+    <h1>Hello, {{ username }}!</h1>
+    <p>Welcome to HoneyDoList.</p>
+
+    <button (click)="onEdit()">Edit Profile</button>
+    <button class="delete" (click)="showModal = true">Delete Account</button>
+    <button class="cancel" (click)="onLogout()">Logout</button>
+  </div>
+
+  <!-- Confirmation Modal -->
+  <div class="modal-backdrop" *ngIf="showModal">
+    <div class="modal">
+      <h3>Are you sure?</h3>
+      <p>This will permanently deactivate your account.</p>
+      <div class="modal-buttons">
+        <button (click)="confirmDelete()">Yes, Delete</button>
+        <button class="cancel" (click)="showModal = false">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
 

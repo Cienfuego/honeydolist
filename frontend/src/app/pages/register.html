@@ -1,4 +1,4 @@
-<div class="register-container">
+<!-- <div class="register-container">
   <h2>Register</h2>
   <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
     <input
@@ -20,6 +20,33 @@
 
     <div class="success" *ngIf="successMessage">{{ successMessage }}</div>
     <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  </form>
+</div> -->
+
+<div class="register-wrapper">
+  <form class="register-card" (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <h2>Create Account</h2>
+
+    <input
+      type="text"
+      name="username"
+      placeholder="Username"
+      [(ngModel)]="username"
+      required
+    />
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      [(ngModel)]="password"
+      required
+    />
+
+    <button type="submit" [disabled]="registerForm.invalid">Register</button>
+    <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
+
+    <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+    <div class="success" *ngIf="successMessage">{{ successMessage }}</div>
   </form>
 </div>
 
