@@ -1,45 +1,114 @@
-<!-- <div class="hello-container">
-  <h2>Hello {{username}}, welcome to HoneyDoList!</h2>
-
-  <button (click)="onLogout()">Logout</button>
-</div>
-<button (click)="onEdit()">Edit Profile</button>
-<button (click)="onDelete()">Delete Account</button>
- -->
-
-
-
-<!-- <div class="hello-wrapper">
-  <div class="card">
-    <h1>Hello, {{ username }}!</h1>
-    <p>Welcome to HoneyDoList. What would you like to do?</p>
-
-    <button (click)="onEdit()">Edit Profile</button>
-    <button class="delete" (click)="onDelete()">Delete Account</button>
-    <button class="cancel" (click)="onLogout()">Logout</button>
-  </div>
-</div> -->
-
 <div class="hello-wrapper">
-  <div class="card">
-    <h1>Hello, {{ username }}!</h1>
-    <p>Welcome to HoneyDoList.</p>
 
-    <button (click)="onEdit()">Edit Profile</button>
-    <button class="delete" (click)="showModal = true">Delete Account</button>
-    <button class="cancel" (click)="onLogout()">Logout</button>
+  <!-- Top-left user action toolbar -->
+  <div class="top-toolbar">
+    <button (click)="onEdit()" title="Edit Profile">Edit Profile</button>
+    <button class="delete" (click)="showDeleteModal = true" title="Delete Account">Delete</button>
+    <button (click)="onLogout()" title="Logout">Logout</button>
   </div>
 
-  <!-- Confirmation Modal -->
-  <div class="modal-backdrop" *ngIf="showModal">
-    <div class="modal">
-      <h3>Are you sure?</h3>
-      <p>This will permanently deactivate your account.</p>
-      <div class="modal-buttons">
-        <button (click)="confirmDelete()">Yes, Delete</button>
-        <button class="cancel" (click)="showModal = false">Cancel</button>
+  <div class="card">
+    <h1>Hello {{ username }}!</h1>
+
+    <!-- Create Task Button -->
+    <button (click)="navigateToCreateTask()">Create New Task</button>
+
+
+    <!-- Modal: Confirm Delete -->
+    <div class="modal-backdrop" *ngIf="showDeleteModal">
+      <div class="modal">
+        <h3>Confirm Account Deletion</h3>
+        <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+        <div class="modal-buttons">
+          <button (click)="confirmDelete()">Yes, Delete</button>
+          <button class="cancel" (click)="showDeleteModal = false">Cancel</button>
+        </div>
       </div>
+    </div>
+
+    <!-- Modal: Create Task Form -->
+    <div class="modal-backdrop" *ngIf="showCreateTaskModal">
+      <div class="modal">
+        <h3>Create New Task</h3>
+        <form (ngSubmit)="submitTask()" #taskForm="ngForm">
+
+          <input
+            type="text"
+            placeholder="Title"
+            name="title"
+            [(ngModel)]="newTask.title"
+            required
+          />
+
+          <textarea
+            placeholder="Description"
+            name="description"
+            [(ngModel)]="newTask.description"
+            rows="3"
+          ></textarea>
+
+          <label for="assignee">Assignee:</label>
+          <select
+            name="assigneeId"
+            [(ngModel)]="newTask.assigneeId"
+            required
+          >
+            <option *ngFor="let user of users" [value]="user.id">
+              {{ user.username }}
+            </option>
+          </select>
+
+          <label for="dueDate">Due Date:</label>
+          <input
+            type="date"
+            name="dueDate"
+            [(ngModel)]="newTask.dueDate"
+            required
+          />
+
+          <label for="priority">Priority:</label>
+          <select
+            name="priority"
+            [(ngModel)]="newTask.priority"
+            required
+          >
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+          </select>
+
+          <div class="modal-buttons">
+            <button type="submit" [disabled]="taskForm.invalid">Create</button>
+            <button type="button" class="cancel" (click)="cancelCreateTask()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="task-view-toggle">
+      <button (click)="toggleTaskView()">
+        {{ showAllTasks ? 'Show My Tasks' : 'Show All Tasks' }}
+      </button>
+    </div>
+
+    <h2>Your Assigned Tasks</h2>
+
+    <div *ngIf="tasks.length === 0">
+      <p>No tasks assigned yet.</p>
+    </div>
+
+    <!-- <div *ngFor="let task of tasks" class="task-card">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+      <p><strong>Due:</strong> {{ task.dueDate | date:'mediumDate' }}</p>
+      <p><strong>Priority:</strong> {{ task.priority }}</p>
+    </div> -->
+    <div class="task-card" *ngFor="let task of tasks" (click)="openTask(task.id)">
+      <h3>{{ task.title }}</h3>
+      <p>{{ task.description }}</p>
+      <p><strong>Due:</strong> {{ task.dueDate | date:'mediumDate' }}</p>
+      <p><strong>Priority:</strong> {{ task.priority }}</p>
     </div>
   </div>
 </div>
+
 
