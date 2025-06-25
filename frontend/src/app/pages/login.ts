@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../services/auth';
+import { AuthService, LoginResponse } from '../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -14,6 +14,7 @@ import { AuthService } from '../services/auth';
 export class LoginComponent {
   username = '';
   password = '';
+  id = '';
   errorMessage = '';
 
   // constructor(private router: Router) {}
@@ -29,15 +30,16 @@ export class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  async onLogin(): Promise<void> {
-    this.errorMessage = '';
-
-    try {
-      await this.authService.login(this.username, this.password);
-      this.router.navigateByUrl('/hello');
-    } catch (error) {
-      this.errorMessage = 'Invalid username or password.';
-    }
+  onLogin() {
+    this.authService.login(this.username, this.password).subscribe({
+      next: (response: LoginResponse) => {
+        console.log('Login successful, user ID:', response.id);
+        this.router.navigate(['/hello']);
+      },
+      error: err => {
+        this.errorMessage = 'Login failed. Please try again.';
+      }
+    });
   }
 
   onRegister(): void {

@@ -39,6 +39,7 @@ p {
   color: #475569;
 }
 
+/* Buttons */
 button {
   margin: 0.25rem;
   padding: 0.6rem 1.2rem;
@@ -72,6 +73,7 @@ button.cancel:hover {
   background-color: #64748B;
 }
 
+/* Modal Styles */
 .modal-backdrop {
   position: fixed;
   top: 0;
@@ -139,4 +141,109 @@ button.cancel:hover {
 
 .modal-buttons .cancel:hover {
   background-color: #64748B;
+}
+
+/* User Controls Container */
+.user-controls {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* Task Cards */
+.task-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 1rem;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  text-align: left;
+
+  h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: #3A86FF;
+  }
+
+  p {
+    margin: 0.3rem 0;
+    font-size: 1rem;
+    color: #475569;
+  }
+
+  strong {
+    color: #1e293b;
+  }
+
+  .top-toolbar {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  z-index: 1100;
+}
+
+.top-toolbar button {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.4rem;
+  border: none;
+  cursor: pointer;
+  background-color: #3A86FF;
+  color: white;
+  transition: background-color 0.2s ease;
+}
+
+.top-toolbar button:hover {
+  background-color: #1093d4;
+}
+
+.top-toolbar button.delete {
+  background-color: #EF4444;
+}
+
+.top-toolbar button.delete:hover {
+  background-color: #DC2626;
+}
+
+/* Create Task button inside card */
+.create-task-btn {
+  margin-bottom: 1.5rem;
+  padding: 0.6rem 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: #3A86FF;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.create-task-btn:hover {
+  background-color: #1093d4;
+}
+
+/* Modal form inputs */
+.modal input[type="text"],
+.modal input[type="date"],
+.modal select,
+.modal textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.3rem 0 1rem 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.4rem;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+}
+
+.modal textarea {
+  resize: vertical;
+  font-family: 'Inter', sans-serif;
+}
 }

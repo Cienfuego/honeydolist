@@ -2,6 +2,7 @@ package com.example.backend.service;
 
 import com.example.backend.dto.AuthRequest;
 import com.example.backend.dto.EditRequest;
+import com.example.backend.dto.LoginResponse;
 import com.example.backend.model.User;
 import com.example.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

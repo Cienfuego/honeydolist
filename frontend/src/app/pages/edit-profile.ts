@@ -12,35 +12,38 @@ import { AuthService } from '../services/auth';
   styleUrls: ['./edit-profile.scss']
 })
 export class EditProfileComponent {
-  newUsername = '';
-  newPassword = '';
+  username = '';
+  password = '';
   errorMessage = '';
   successMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit(): void {
-    const oldUsername = this.authService.getUsername();
-    console.log("made it here")
-    if (!oldUsername) return;
+  ngOnInit() {
+    this.username = this.authService.getUsername() || '';
+  }
 
-    this.authService.editUser(oldUsername, this.newUsername, this.newPassword).subscribe({
-      
+  onSubmit() {
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      this.errorMessage = 'User ID not found.';
+      return;
+    }
+
+    this.authService.updateUser(userId, this.username, this.password).subscribe({
       next: () => {
-        this.successMessage = 'Profile updated!';
-        //this.authService.logout();
-        localStorage.setItem('username', this.newUsername);
-        console.log("made it to next")
+        this.successMessage = 'Profile updated successfully!';
         setTimeout(() => this.router.navigate(['/hello']), 1500);
       },
       error: err => {
-        this.errorMessage = err.error?.message || 'Update failed';
+        this.errorMessage = err.error || 'Update failed';
       }
     });
   }
 
-  onCancel(): void {
+  onCancel() {
     this.router.navigate(['/hello']);
   }
 }
+
 
