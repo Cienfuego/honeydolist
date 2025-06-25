@@ -1,0 +1,31 @@
+<div class="create-task-wrapper">
+  <div class="card">
+    <h2>Create New Task</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <input type="text" [(ngModel)]="newTask.title" name="title" placeholder="Task Title" required />
+
+      <textarea [(ngModel)]="newTask.description" name="description" placeholder="Task Description" required></textarea>
+
+      <label>Assign to:</label>
+      <select [(ngModel)]="newTask.assigneeId" name="assigneeId" required>
+        <option *ngFor="let user of users" [value]="user.id">{{ user.username }}</option>
+      </select>
+
+      <label>Due Date:</label>
+      <input type="date" [(ngModel)]="newTask.dueDate" name="dueDate" required />
+
+      <label>Priority:</label>
+      <select [(ngModel)]="newTask.priority" name="priority" required>
+        <option value="LOW">Low</option>
+        <option value="MEDIUM">Medium</option>
+        <option value="HIGH">High</option>
+      </select>
+
+      <div class="button-group">
+        <button type="submit">Create Task</button>
+        <button type="button" class="cancel" (click)="onCancel()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
