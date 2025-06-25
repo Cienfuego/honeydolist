@@ -1,0 +1,26 @@
+<div class="task-detail-wrapper">
+  <h2>{{ task?.title }}</h2>
+  <p>{{ task?.description }}</p>
+  <p><strong>Due:</strong> {{ task?.dueDate | date }}</p>
+  <p><strong>Priority:</strong> {{ task?.priority }}</p>
+
+  <button (click)="completeTask()" *ngIf="!task?.completed">Mark as Complete</button>
+
+  <h3>Comments</h3>
+  <div *ngFor="let comment of task?.comments" class="comment">
+    <p><strong>{{ comment.author }}</strong> - {{ comment.createdAt | date: 'short' }}</p>
+    <p>{{ comment.text }}</p>
+</div>
+  
+  
+  
+  <!-- <ul>
+    <li *ngFor="let comment of comments">
+      {{ comment.text }} — <i>{{ comment.createdAt | date:'short' }}</i>
+    </li>
+  </ul> -->
+
+  <textarea [(ngModel)]="newComment" placeholder="Write a comment..."></textarea>
+  <button (click)="submitComment()">Add Comment</button>
+</div>
+

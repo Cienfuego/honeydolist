@@ -1,0 +1,46 @@
+.create-task-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #f8fafc, #e0f2fe);
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  width: 100%;
+  max-width: 500px;
+}
+
+input, textarea, select {
+  display: block;
+  width: 100%;
+  margin: 0.75rem 0;
+  padding: 0.6rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.6rem 1.2rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  background-color: #3A86FF;
+  color: white;
+}
+
+button.cancel {
+  background-color: #94A3B8;
+}
