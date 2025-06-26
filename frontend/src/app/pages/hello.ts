@@ -20,6 +20,7 @@ export class HelloComponent implements OnInit {
   showAllTasks = false;
   showDeleteModal = false;
   showCreateTaskModal = false;
+  showCompletedTasks = false;
 
   tasks: Task[] = [];
   users: User[] = [];
@@ -55,11 +56,26 @@ export class HelloComponent implements OnInit {
     this.loadTasks();
   }
 
+  toggleCompleteTasks(): void {
+    
+    !this.showCompletedTasks ? this.showCompletedTasks = true 
+        : this.showCompletedTasks = false
+    console.log("show completed tasks from toggle complete? ", this.showCompletedTasks)
+    if (this.showCompletedTasks){
+        this.taskService.getCompletedTasks().subscribe({
+        next: tasks => this.tasks = tasks,
+        error: err => console.error('Error loading tasks:', err)
+        });
+    } else {
+      this.loadTasks();
+    }
+  }
+
   loadTasks(): void {
     if (this.showAllTasks){
       this.taskService.getAllActiveTasks().subscribe(tasks => this.tasks = tasks);
     } else {
-    this.taskService.getTasksAssignedTo(this.userId!).subscribe({
+      this.taskService.getTasksAssignedTo(this.userId!).subscribe({
       next: tasks => this.tasks = tasks,
       error: err => console.error('Error loading tasks:', err)
       });
@@ -112,37 +128,6 @@ export class HelloComponent implements OnInit {
     }
   }
 
-    // Create payload for backend API
-    // const taskPayload = {
-    //   title: this.newTask.title,
-    //   description: this.newTask.description,
-    //   assigneeId: this.newTask.assigneeId,
-    //   dueDate: this.newTask.dueDate,
-    //   priority: this.newTask.priority,
-    //   assignorId: this.userId
-    // };
-
-// const taskPayload = {
-//   title: this.newTask.title,
-//   description: this.newTask.description,
-//   dueDate: this.newTask.dueDate,
-//   priority: this.newTask.priority as 'LOW' | 'MEDIUM' | 'HIGH',
-//   assignor: { id: this.userId! },
-//   assignee: { id: this.newTask.assigneeId! }
-// };
-
-//     this.taskService.createTask(taskPayload).subscribe({
-//       next: () => {
-//         this.showCreateTaskModal = false;
-//         this.resetNewTask();
-//         this.loadTasks();
-//       },
-//       error: err => {
-//         console.error('Task creation failed', err);
-//         alert('Failed to create task. Please try again.');
-//       }
-//     });
-//   }
   openTask(taskId: number): void {
   this.router.navigate(['/task', taskId]);
 }

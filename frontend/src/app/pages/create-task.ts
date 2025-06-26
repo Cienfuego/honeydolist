@@ -16,6 +16,7 @@ import { User } from '../models/user';
   imports: [CommonModule, FormsModule]
 })
 export class CreateTaskComponent implements OnInit {
+  assignor_name: string = ''; //string = "" //string | null = null
   newTask: Partial<CreateTaskDto> = {
     title: '',
     description: '',
@@ -39,7 +40,14 @@ export class CreateTaskComponent implements OnInit {
     const userId = this.authService.getUserId();
     if (userId) {
       this.newTask.assignorId = userId;
-      this.newTask.assigneeId = userId;
+      
+      //this.newTask.assignorId = userId;
+      console.log("here");
+    
+  
+    
+     
+
     }
   }
 

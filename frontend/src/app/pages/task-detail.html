@@ -1,26 +1,42 @@
-<div class="task-detail-wrapper">
-  <h2>{{ task?.title }}</h2>
-  <p>{{ task?.description }}</p>
-  <p><strong>Due:</strong> {{ task?.dueDate | date }}</p>
-  <p><strong>Priority:</strong> {{ task?.priority }}</p>
 
-  <button (click)="completeTask()" *ngIf="!task?.completed">Mark as Complete</button>
 
-  <h3>Comments</h3>
-  <div *ngFor="let comment of task?.comments" class="comment">
-    <p><strong>{{ comment.author }}</strong> - {{ comment.createdAt | date: 'short' }}</p>
-    <p>{{ comment.text }}</p>
+<div class="task-detail-container" *ngIf="task">
+  <div class="task-card">
+    <button class="close-button" (click)="goBack()">✕</button>
+    <h2>{{ task?.title }}</h2>
+    <p class="meta"><strong>Assigned To:</strong> {{ this.assignee_name }}</p>
+    <p class="meta"><strong>Assigned By:</strong> {{ this.assignor_name }}</p>
+    <p><strong>Due:</strong> {{ task?.dueDate | date:'mediumDate' }}</p>
+    <p><strong>Priority:</strong> {{ task?.priority }}</p>
+    <p><strong>Description:</strong></p>
+    <p>{{ task?.description }}</p>
+
+
+
+    <p><strong>Completion Status:</strong>{{ task?.completed ? " Completed" : " Active"}}</p>
+    <div class="completion-toggle">
+ 
+
+  <div class="completion-button">
+  <button (click)="toggleTaskCompletion()">
+    {{ task?.completed ? 'Mark Task As Active' : 'Mark Task As Completed' }}
+  </button>
+  </div>
+
+
+  <div class="comments-section">
+    <h3>Comments</h3>
+
+    <div class="comment" *ngFor="let comment of comments">
+      <p class="comment-meta">{{ comment.author }} – {{ comment.createdAt | date:'short' }}</p>
+      <p class="comment-text">{{ comment.text }}</p>
+    </div>
+
+    <div class="comment-form">
+      <textarea [(ngModel)]="newComment" placeholder="Write a comment..."></textarea>
+      <button (click)="submitComment()">Add Comment</button>
+    </div>
+  </div>
 </div>
-  
-  
-  
-  <!-- <ul>
-    <li *ngFor="let comment of comments">
-      {{ comment.text }} — <i>{{ comment.createdAt | date:'short' }}</i>
-    </li>
-  </ul> -->
 
-  <textarea [(ngModel)]="newComment" placeholder="Write a comment..."></textarea>
-  <button (click)="submitComment()">Add Comment</button>
-</div>
 

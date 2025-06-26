@@ -85,23 +85,27 @@
       </div>
     </div>
     <div class="task-view-toggle">
-      <button (click)="toggleTaskView()">
-        {{ showAllTasks ? 'Show My Tasks' : 'Show All Tasks' }}
+      <button *ngIf="!showCompletedTasks"(click)="toggleTaskView()">
+        {{ showAllTasks ? 'Show My Tasks' : 'Show All User Tasks' }}
+      </button>
+    </div>
+    <div class="completed-view-toggle">
+      <button (click)="toggleCompleteTasks()">
+        {{ showCompletedTasks ? 'Show Active Tasks' : 'Show Completed Tasks' }}
       </button>
     </div>
 
-    <h2>Your Assigned Tasks</h2>
+    <h2>{{ showAllTasks ? 
+             showCompletedTasks ? 'All Completed Tasks:': 
+              'All Active Tasks:': 
+                   showCompletedTasks ? "Completed Tasks: " :
+                        'My Active Tasks:' }}
+      
+    </h2>
 
     <div *ngIf="tasks.length === 0">
-      <p>No tasks assigned yet.</p>
+      <p>{{ !showCompletedTasks? "No tasks assigned yet." : "No tasks completed yet." }}</p>
     </div>
-
-    <!-- <div *ngFor="let task of tasks" class="task-card">
-      <h3>{{ task.title }}</h3>
-      <p>{{ task.description }}</p>
-      <p><strong>Due:</strong> {{ task.dueDate | date:'mediumDate' }}</p>
-      <p><strong>Priority:</strong> {{ task.priority }}</p>
-    </div> -->
     <div class="task-card" *ngFor="let task of tasks" (click)="openTask(task.id)">
       <h3>{{ task.title }}</h3>
       <p>{{ task.description }}</p>

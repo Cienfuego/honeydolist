@@ -9,9 +9,12 @@ import com.example.backend.repository.UserRepository;
 import com.example.backend.repository.UserRepositoryExtended;
 import com.example.backend.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.http.ResponseEntity;
 //import org.springframework.stereotype.Component;
@@ -46,6 +49,12 @@ public class TaskController {
                 .<ResponseEntity<?>>map(savedTask -> ResponseEntity.ok(savedTask))
                 .orElseGet(() -> ResponseEntity.badRequest().body("Invalid assignor or assignee ID"));
     }
+
+    @GetMapping("/completed")
+    public ResponseEntity<?> getAllTasks() {
+        return ResponseEntity.ok(taskService.getCompletedTasks());
+    }
+
 
     @GetMapping("/active")
     public ResponseEntity<?> getActiveTasks() {
@@ -100,10 +109,22 @@ public class TaskController {
 
     @PutMapping("/{taskId}/complete")
     public ResponseEntity<?> completeTask(@PathVariable Long taskId) {
-        boolean result = taskService.completeTask(taskId);
-        return result
-                ? ResponseEntity.ok("Task marked as complete")
-                : ResponseEntity.notFound().build();
+        Long blah = taskId;
+        Optional<Task> updatedTask = taskService.completeTask(taskId);
+        return updatedTask
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
+    }
+
+    @PutMapping("/{taskId}/active")
+    public ResponseEntity<?> markTaskActive(@PathVariable Long taskId) {
+        Long blah = taskId;
+        Optional<Task> updatedTask = taskService.markTaskActive(taskId);
+        return updatedTask
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+
     }
 
     @DeleteMapping("/{taskId}")
