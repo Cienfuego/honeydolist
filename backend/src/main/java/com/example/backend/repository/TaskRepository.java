@@ -9,6 +9,8 @@ import java.util.List;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByCompletedFalseOrderByCreatedAtDesc();
+
+    List<Task> findByCompletedTrueOrderByCreatedAtDesc();
     List<Task> findByCompletedFalseAndAssigneeId(User assignee);
     List<Task> findByDueDateBeforeAndCompletedFalse(LocalDate date);
     List<Task> findByCompletedTrueAndAssigneeId(User assignee);

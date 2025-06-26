@@ -51,6 +51,14 @@ public class TaskService {
         return taskRepository.findByCompletedFalseOrderByCreatedAtDesc();
     }
 
+    public List<Task> getCompletedTasks() {
+        return taskRepository.findByCompletedTrueOrderByCreatedAtDesc();
+    }
+
+    public List<Task> getAllTasks() {
+        return taskRepository.findByCompletedFalseOrderByCreatedAtDesc();
+    }
+
     public List<Task> getOverdueTasks() {
         return taskRepository.findByDueDateBeforeAndCompletedFalse(LocalDate.now());
     }
@@ -61,15 +69,22 @@ public class TaskService {
                 .orElse(List.of());
     }
 
-    public boolean completeTask(Long taskId) {
-        Optional<Task> taskOpt = taskRepository.findById(taskId);
-        if (taskOpt.isEmpty()) return false;
+    public Optional<Task> completeTask(Long taskId) {
 
-        Task task = taskOpt.get();
-        task.setCompleted(true);
-        taskRepository.save(task);
-        return true;
+        return taskRepository.findById(taskId).map(task -> {
+            task.setCompleted(true);
+            return taskRepository.save(task);
+        });
     }
+
+    public Optional<Task> markTaskActive(Long taskId) {
+
+        return taskRepository.findById(taskId).map(task -> {
+            task.setCompleted(false);
+            return taskRepository.save(task);
+        });
+    }
+
 
     public Optional<Task> getTaskById(Long id) {
         return taskRepository.findById(id);

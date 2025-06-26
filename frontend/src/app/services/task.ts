@@ -12,9 +12,14 @@ export class TaskService {
 
   constructor(private http: HttpClient) {}
 
+  
   getAllActiveTasks(): Observable<Task[]> {
-  return this.http.get<Task[]>(`${this.baseUrl}/active`);
-}
+    return this.http.get<Task[]>(`${this.baseUrl}/active`);
+  }
+  
+  getCompletedTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(`${this.baseUrl}/completed`);
+  }
   
   getTasksAssignedTo(userId: number): Observable<Task[]> {
     return this.http.get<Task[]>(`${this.baseUrl}/assigned/${userId}`);
@@ -24,8 +29,8 @@ export class TaskService {
     return this.http.get<Task[]>(`${this.baseUrl}/created/${userId}`);
   }
 
-  getTaskById(taskId: number): Observable<Task[]> {
-    return this.http.get<Task[]>(`${this.baseUrl}/${taskId}`);
+  getTaskById(taskId: number): Observable<Task> {
+    return this.http.get<Task>(`${this.baseUrl}/${taskId}`);
   }
 
   createTask(task: CreateTaskDto): Observable<Task> {
@@ -43,6 +48,12 @@ export class TaskService {
   markComplete(taskId: number): Observable<any> {
     return this.http.put(`${this.baseUrl}/${taskId}/complete`, {});
   }
+
+  markActive(taskId: number): Observable<Task> {
+  return this.http.put<Task>(`${this.baseUrl}/${taskId}/active`, {});
+}
+
+
 
   
 

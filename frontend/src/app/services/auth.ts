@@ -49,7 +49,7 @@ export class AuthService {
   }
 
   updateUser(userId: number, username: string, password: string) {
-  return this.http.put<number>(`${this.apiUrl}/users/${userId}`, { username, password }).pipe(
+    return this.http.put<number>(`${this.apiUrl}/users/${userId}`, { username, password }).pipe(
     tap(newUserId => {
       localStorage.setItem('userId', newUserId.toString());
       localStorage.setItem('username', username);

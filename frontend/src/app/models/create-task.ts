@@ -5,5 +5,4 @@ export interface CreateTaskDto {
   priority: 'LOW' | 'MEDIUM' | 'HIGH';
   assignorId: number;
   assigneeId: number;
-  //assigneeId: number;
 }
