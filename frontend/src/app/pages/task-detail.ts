@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth';
 import { UserService } from '../services/user'
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { create } from 'domain';
 
 
 @Component({
@@ -56,8 +57,14 @@ export class TaskDetailComponent implements OnInit {
 
   submitComment() {
     if (this.newComment.trim()) {
-      this.commentService.addComment(this.taskId, this.userId!, this.newComment).subscribe(() => {
-        this.comments.push({ text: this.newComment, createdAt: new Date(), user: { id: this.userId } });
+      // this.commentService.addComment(this.taskId, this.userId!, this.newComment).subscribe(() => {
+      //   this.comments.push({ text: this.newComment, createdAt: new Date(), user: { id: this.userId } });
+      //   this.newComment = '';
+      
+      // });
+      this.commentService.addComment(this.taskId, this.userId!, this.newComment).subscribe((createdComment) => {
+        this.comments.push(createdComment);
+        //console.log(createdComment);
         this.newComment = '';
       
       });
